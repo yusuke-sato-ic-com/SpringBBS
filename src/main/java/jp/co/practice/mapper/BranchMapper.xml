@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.practice.mapper.BranchMapper">
+	<resultMap id="BranchesResult" type="jp.co.practice.entity.Branch">
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+	</resultMap>
+
+	<select id="getBranches" resultMap="BranchesResult">
+		SELECT * FROM branch
+	</select>
+
+</mapper>

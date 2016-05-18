@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.practice.mapper.UserMapper">
+	<resultMap id="UserResult" type="jp.co.practice.entity.User">
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="login_id" property="loginId" />
+		<result column="password" property="password" />
+		<result column="branch" property="branchId" />
+		<result column="department" property="departmentId" />
+		<result column="branch_name" property="branchName" />
+		<result column="department_name" property="departmentName" />
+	</resultMap>
+
+	<resultMap id="EditedUserResult" type="jp.co.practice.entity.User">
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="login_id" property="loginId" />
+		<result column="password" property="password" />
+		<result column="branch" property="branchId" />
+		<result column="department" property="departmentId" />
+		<result column="branch_name" property="branchName" />
+		<result column="department_name" property="departmentName" />
+	</resultMap>
+
+	<resultMap id="LoginUserResult" type="jp.co.practice.entity.User">
+		<result column="id" property="id" />
+		<result column="login_id" property="loginId" />
+		<result column="password" property="password" />
+		<result column="name" property="name" />
+		<result column="using" property="using" />
+		<result column="branch" property="branchId" />
+		<result column="department" property="departmentId" />
+	</resultMap>
+
+	<resultMap id="checkOverlapLoginIdResult" type="Integer">
+		<result column="count" property="count" />
+	</resultMap>
+
+	<select id="getAllUser" resultMap="UserResult">
+		SELECT user.*, branch.name AS branch_name, department.name AS department_name
+		FROM user, branch, department
+		WHERE user.branch = branch.id AND user.department = department.id
+	</select>
+
+	<select id="getEditedUser" resultMap="EditedUserResult">
+		SELECT * FROM user WHERE id = #{id}
+	</select>
+
+	<select id="getLoginUser" resultMap="LoginUserResult">
+		SELECT * FROM user WHERE login_id = #{loginId}
+	</select>
+
+	<select id="checkOverlapLoginId" resultMap="checkOverlapLoginIdResult">
+		SELECT count(id) AS count FROM user WHERE login_id = #{loginId}
+	</select>
+
+	<insert id="register" parameterType="jp.co.practice.entity.User">
+		INSERT INTO user (login_id, password, name, branch, department)
+		VALUES (#{loginId}, #{password}, #{name}, #{branchId}, #{departmentId})
+	</insert>
+
+	<update id="editUsing" parameterType="Integer">
+		UPDATE user SET user.using = #{using} WHERE id = #{userId}
+	</update>
+
+	<delete id="deleteUser" parameterType="Integer">
+		DELETE FROM user WHERE id = #{userId}
+	</delete>
+
+	<update id="editor" parameterType="jp.co.practice.entity.User">
+		UPDATE user SET
+		 login_id = #{loginId}
+		, password = #{password}
+		, name = #{name}
+		, branch = #{branchId}
+		, department = #{departmentId}
+		 WHERE id = #{id}
+	</update>
+
+	<update id="exceptPassEditor" parameterType="jp.co.practice.entity.User">
+		UPDATE user SET
+		 login_id = #{loginId}
+		, name = #{name}
+		, branch = #{branchId}
+		, department = #{departmentId}
+		 WHERE id = #{id}
+	</update>
+
+</mapper>

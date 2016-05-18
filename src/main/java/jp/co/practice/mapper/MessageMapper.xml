@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.practice.mapper.MessageMapper">
+	<resultMap id="AllMessageResult" type="jp.co.practice.entity.Message">
+		<result column="name" property="name" />
+		<result column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="branch_id" property="branchId" />
+		<result column="department_id" property="departmentId" />
+		<result column="title" property="title" />
+		<result column="category" property="category" />
+		<result column="text" property="text" />
+		<result column="insert_date" property="insertDate" />
+	</resultMap>
+
+	<resultMap id="CategoriesResult" type="jp.co.practice.entity.Message">
+		<result column="category" property="category" />
+	</resultMap>
+
+	<resultMap id="DateResult" type="jp.co.practice.entity.Message">
+		<result column="min" property="minDate" />
+		<result column="max" property="maxDate" />
+	</resultMap>
+
+	<resultMap id="NoCategoryDefinedMessagesResult" type="jp.co.practice.entity.Message">
+		<result column="name" property="name" />
+		<result column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="branch_id" property="branchId" />
+		<result column="department_id" property="departmentId" />
+		<result column="title" property="title" />
+		<result column="category" property="category" />
+		<result column="text" property="text" />
+		<result column="insert_date" property="insertDate" />
+	</resultMap>
+
+	<resultMap id="DefinedMessagesResult" type="jp.co.practice.entity.Message">
+		<result column="name" property="name" />
+		<result column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="branch_id" property="branchId" />
+		<result column="department_id" property="departmentId" />
+		<result column="title" property="title" />
+		<result column="category" property="category" />
+		<result column="text" property="text" />
+		<result column="insert_date" property="insertDate" />
+	</resultMap>
+
+
+	<select id="getAllMessage" resultMap="AllMessageResult">
+		SELECT * FROM user_message ORDER BY insert_date DESC limit 1000
+	</select>
+
+	<select id="getCategories" resultMap="CategoriesResult">
+		SELECT DISTINCT category FROM bbs.message
+	</select>
+
+	<insert id="postNewMessage" parameterType="jp.co.practice.entity.Message">
+		INSERT INTO message (user_id, title, category, text, insert_date, update_date)
+		VALUES (#{userId}, #{title}, #{category}, #{text}
+		, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+	</insert>
+
+	<select id="getDate" resultMap="DateResult">
+		SELECT min(insert_date) as min, max(insert_date) as max FROM bbs.message
+	</select>
+
+	<select id="getNoCategoryDefinedMessages" resultMap="NoCategoryDefinedMessagesResult">
+		SELECT * FROM user_message WHERE date(insert_date)
+		BETWEEN #{fromDate} AND #{toDate}
+		ORDER BY insert_date DESC limit 1000
+	</select>
+
+	<select id="getDefinedMessages" resultMap="DefinedMessagesResult">
+		SELECT * FROM user_message
+		WHERE category = #{categoryName}
+		AND date(insert_date)
+		BETWEEN #{fromDate} AND #{toDate}
+		ORDER BY insert_date DESC limit 1000
+	</select>
+
+	<delete id="deleteMessage">
+		DELETE FROM message WHERE id = #{messageId}
+	</delete>
+
+</mapper>

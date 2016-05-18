@@ -1,0 +1,43 @@
+#login{
+	width: 350px;
+	text-align: center;
+	margin: 30px auto;
+	padding: 20px;
+	border: 2px solid #000000;
+}
+
+.login_title {
+	font-size: 30px;
+	padding-bottom: 10px;
+	margin-bottom: 20px;
+	border-bottom:solid 3px #8080ff;"
+}
+
+.label {
+	width: 120px;
+	text-align: center;
+	padding: 8px;
+	color: #ffffff;
+	background-color: #0000ff;
+}
+
+.form {
+	width: 200px;
+	padding: 8px;
+}
+
+.submit {
+	padding: 8px;
+}
+
+table.user_management {
+	text-align: left;
+	line-height: 1.5;
+}
+
+table.user_management th {
+	text-align: center;
+	line-height: 1.5;
+	color: #ffffff;
+	background-color: #0000ff;
+}
