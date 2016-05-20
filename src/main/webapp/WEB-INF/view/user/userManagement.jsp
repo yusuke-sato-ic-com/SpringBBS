@@ -47,10 +47,11 @@ function deleteDisp(){
 <a href="signup">ユーザー新規登録</a>
 <a href="./">ホームへ戻る</a>
 
-<h2>ユーザー管理画面</h2>
+	<div class="title">
+		ユーザー管理画面
+	</div>
 
-<table class="user_management">
-	<tbody>
+	<table class="user_management">
 		<tr>
 			<th>名前</th>
 			<th>ログインID</th>
@@ -59,9 +60,7 @@ function deleteDisp(){
 			<th>利用</th>
 			<th colspan="2">編集</th>
 		</tr>
-	</tbody>
 	<c:forEach items="${users}" var="user">
-	<tbody>
 		<tr>
 			<td>${user.name}</td>
 			<td>${user.loginId}</td>
@@ -91,7 +90,6 @@ function deleteDisp(){
 				<td><input name="edit" type="submit" value="編集" /></td>
 			</form:form>
 		</tr>
-	</tbody>
 	</c:forEach>
 </table>
 

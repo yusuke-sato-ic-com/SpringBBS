@@ -55,6 +55,39 @@ function deleteDisp(){
 // -->
 </script>
 
+
+<script type="text/javascript">
+/*	$(function(){
+		// formのsubmitイベントで起動
+		$("form").submit(function(event) {
+			event.preventDefault(); // フォームの送信処理をキャンセル
+			var form = $(this);
+			$.ajax({
+				type		: "POST", // method
+				url			: "ajaxTest", // action
+				dataType	: "text",
+				data		: form.serialize(),
+				timeout: 10000,
+			})
+			.done(function(data){
+				// 通信が成功したときの処理
+				console.log("通信成功");
+
+			})
+			.fail(function(data){
+				// 通信が失敗したときの処理
+				console.log("通信失敗");
+			})
+			.always(function(data){
+				// 通信が完了したとき
+				console.log("通信完了");
+			});
+		});
+	});
+	*/
+</script>
+
+
 </head>
 <body>
 	<c:if test="${empty loginUser }">
@@ -64,9 +97,7 @@ function deleteDisp(){
 					<%-- <ul>は順序のないリストを表示する歳際に使用する。順序のあるリスト表示は<ol> --%>
 					<c:forEach items="${errorMessages}" var="messages">
 						<%-- 配列をループ処理 --%>
-						<center>
-							<font size="4" color="#ff0000"><c:out value="${messages}" /></font>
-						</center>
+							<li><font size="4" color="#ff0000"><c:out value="${messages}" /></font></li>
 					</c:forEach>
 				</ul>
 			</div>
@@ -88,20 +119,44 @@ function deleteDisp(){
 		</div>
 	</c:if>
 
+
+<table class="define">
 	<form:form ModelAttribute="HomeForm" method="GET">
-		<label for="fromDate">日付範囲</label>
-		<input name="fromDate" type="text" id="fromDate" placeholder="From" />
-		<label for="toDate">～</label>
-		<input name="toDate" type="text" id="toDate" placeholder="To" />
-		<label for="categories">カテゴリー</label>
-		<select name="categoryName">
-			<option>すべて</option>
-			<c:forEach items="${categories}" var="categories">
-				<option value="${categories.category}">${categories.category}</option>
-			</c:forEach>
-		</select>
-		<input type="submit" value="検索" />
+		<tr>
+			<td>
+				<label for="fromDate">日付範囲</label>
+			</td>
+			<td>
+				<input name="fromDate" type="text" id="fromDate" placeholder="From" />
+			</td>
+			<td>
+				<label for="toDate">～</label>
+			</td>
+			<td>
+				<input name="toDate" type="text" id="toDate" placeholder="To" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="categories">カテゴリー</label>
+			</td>
+			<td>
+				<select name="categoryName">
+					<option>すべて</option>
+					<c:forEach items="${categories}" var="categories">
+						<option value="${categories.category}">${categories.category}</option>
+					</c:forEach>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="submit" value="検索" />
+			</td>
+		</tr>
 	</form:form>
+</table>
+
 
 	<c:if test="${ not empty errorMessages }">
 		<div class="errorMessages">
@@ -115,14 +170,15 @@ function deleteDisp(){
 	</c:if>
 
 	<c:forEach items="${messages}" var="message">
-		<div class="message-name">
+		<div id="message">
+		<div class="message-item">
 			<c:out value="${message.name}" />
 		</div>
-		<div class="message-category">カテゴリー：</div>
+		<div class="message-item">カテゴリー：</div>
 		<c:out value="${message.category}" />
-		<div class="message-title">件名：</div>
+		<div class="message-item">件名：</div>
 		<c:out value="${message.title}" />
-		<div class="message-text">本文：</div>
+		<div class="message-item">本文：</div>
 		<c:out value="${message.text}"  escapeXml="false"/>
 		<div class="message-date"><fmt:formatDate value="${message.insertDate}" pattern="yyyy/MM/dd HH:mm:ss" /></div>
 		<c:if test="${message.userId == loginUser.id || loginUser.departmentId == 2 || loginUser.departmentId == 3 && loginUser.branchId == message.branchId}">
@@ -164,11 +220,21 @@ function deleteDisp(){
 			<label for="comment">コメントする</label><br />
 			<input name="messageId" type="hidden" value="${message.id}" id="messageId" />
 			<input name="userId" type="hidden" value="${loginUser.id}" />
-			<textarea name="text" cols="68" rows="5" class="comment-box" >${comment.text}</textarea><br />
+			<textarea name="text" cols="68" rows="5" class="comment-box" ><c:if test="${comment.messageId == message.id}">${comment.text}</c:if></textarea><br />
+		<%--	<c:choose>
+				<c:when test="${comment.messageId == message.id}">
+					<textarea name="text" cols="68" rows="5" class="comment-box" >${comment.text}</textarea><br />
+				</c:when>
+				<c:otherwise>
+					<textarea name="text" cols="68" rows="5" class="comment-box" ></textarea><br />
+				</c:otherwise>
+			</c:choose>
+		 --%>
 			<p class="home-submit">
 				<input type="submit" value="コメントを投稿"/>
 			</p>
 		</form:form>
+		</div>
 	</c:forEach>
 </body>
 </html>

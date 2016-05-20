@@ -9,7 +9,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="<c:url value='resources/css/style.css'/>" />
-<title>ログイン画面</title>
+<title>ログイン</title>
 
 </head>
 <body>
@@ -35,18 +35,18 @@
 	<form:form modelAttribute="LoginForm">
 		<tr>
 			<th>
-				<div class="label"><label>ログインID</label></div>
+				<div class="login_label"><label>ログインID</label></div>
 			</th>
 			<th>
-				<div class="form"><input name="loginId" maxlength="20"/></div>
+				<div class="login_form"><input name="loginId" maxlength="20"/></div>
 			</th>
 		</tr>
 		<tr>
 			<th>
-				<div class="label"><label>パスワード</label></div>
+				<div class="login_label"><label>パスワード</label></div>
 			</th>
 			<th>
-				<div class="form"><input name="password" type="password" maxlength="20"/></div>
+				<div class="login_form"><input name="password" type="password" maxlength="20"/></div>
 			</th>
 		</tr>
 		<tr>

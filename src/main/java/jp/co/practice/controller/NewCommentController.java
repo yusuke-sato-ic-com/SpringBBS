@@ -11,18 +11,44 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import jp.co.practice.entity.Branch;
 import jp.co.practice.entity.Comment;
+import jp.co.practice.entity.Department;
+import jp.co.practice.entity.Message;
 import jp.co.practice.form.NewCommentForm;
+import jp.co.practice.service.BranchService;
 import jp.co.practice.service.CommentService;
+import jp.co.practice.service.DepartmentService;
+import jp.co.practice.service.MessageService;
 
 @Controller
 public class NewCommentController {
+
+	@Autowired
+	private MessageService messageService;
+	@Autowired
+	private BranchService branchService;
+	@Autowired
+	private DepartmentService departmentService;
 
 	@Autowired
 	private CommentService commentService;
 
 	@RequestMapping(value = "/newComment", method = RequestMethod.POST)
 	public String newMessage(@ModelAttribute NewCommentForm form, Model model) {
+
+		model.addAttribute("title", "ホーム画面");
+
+		// プルダウン用カテゴリー一覧
+		List<Message> categories = messageService.getCategories();
+
+		// 支店、部署のプルダウン用
+		List<Branch> branches = branchService.getBranches();
+		List<Department> departments = departmentService.getDepartments();
+
+		// 投稿、コメント一覧
+		List<Message> messages = messageService.getAllMessage();
+		List<Comment> comments = commentService.getAllComment();
 
 		List<String> errorMessages = new ArrayList<String>();
 
@@ -35,9 +61,14 @@ public class NewCommentController {
 			commentService.postComment(comment);
 			return "redirect:./";
 		} else {
+			model.addAttribute("categories", categories);
+			model.addAttribute("branches", branches);
+			model.addAttribute("departments", departments);
+			model.addAttribute("comments", comments);
+			model.addAttribute("messages", messages);
 			model.addAttribute("comment", comment);
 			model.addAttribute("errorMessages", errorMessages);
-			return "redirect:./";
+			return "/home";
 		}
 	}
 

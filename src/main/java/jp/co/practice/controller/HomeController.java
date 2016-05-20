@@ -11,10 +11,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import jp.co.practice.entity.Branch;
 import jp.co.practice.entity.Comment;
+import jp.co.practice.entity.Department;
 import jp.co.practice.entity.Message;
 import jp.co.practice.form.HomeForm;
+import jp.co.practice.service.BranchService;
 import jp.co.practice.service.CommentService;
+import jp.co.practice.service.DepartmentService;
 import jp.co.practice.service.MessageService;
 
 @Controller
@@ -24,6 +28,10 @@ public class HomeController {
 	private MessageService messageService;
 	@Autowired
 	private CommentService commentService;
+	@Autowired
+	private BranchService branchService;
+	@Autowired
+	private DepartmentService departmentService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(@ModelAttribute HomeForm form, Model model) {
@@ -32,6 +40,10 @@ public class HomeController {
 
 		// プルダウン用カテゴリー一覧
 		List<Message> categories = messageService.getCategories();
+
+		// 支店、部署のプルダウン用
+		List<Branch> branches = branchService.getBranches();
+		List<Department> departments = departmentService.getDepartments();
 
 		// 投稿、コメント一覧
 		List<Message> messages = messageService.getAllMessage();
@@ -72,6 +84,8 @@ public class HomeController {
 		}
 
 		model.addAttribute("categories", categories);
+		model.addAttribute("branches", branches);
+		model.addAttribute("departments", departments);
 		model.addAttribute("comments", comments);
 		model.addAttribute("messages", messages);
 		return "/home";

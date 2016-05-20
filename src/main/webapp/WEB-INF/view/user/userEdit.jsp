@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="<c:url value='resources/css/style.css'/>" />
-<title>ユーザー編集画面</title>
+<title>ユーザー編集</title>
 </head>
 <body>
 
@@ -24,11 +24,14 @@
 	<c:remove var="errorMessages" scope="session" />
 </c:if>
 
-	<h2>
-		<c:out value="${title}"></c:out>
-	</h2>
+
 	<form:form modelAttribute="userEditForm">
-		<table>
+		<table class="user_edit">
+			<tr>
+				<td colspan="2">
+					<div class="title"><c:out value="${title}"></c:out></div>
+				</td>
+			</tr>
 			<tr>
 				<td>
 					<div class="label"><form:label path="name">名前</form:label></div>
@@ -103,7 +106,7 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-					<input type="submit" value="変更"/>
+					<div class="submit"><input type="submit" value="変更"/></div>
 				</td>
 			</tr>
 		</table>

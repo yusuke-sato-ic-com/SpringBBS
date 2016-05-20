@@ -13,22 +13,27 @@
 
 	<p><a href="userManagement">管理画面へ戻る</a></p>
 
-<c:if test="${ not empty errorMessages }">
-	<div class="errorMessages">
-		<ul>
-			<c:forEach items="${errorMessages}" var="messages">
-				<font size="4" color="#ff0000"><c:out value="${messages}" /><br /></font>
-			</c:forEach>
-		</ul>
-	</div>
-	<c:remove var="errorMessages" scope="session" />
-</c:if>
+	<c:if test="${ not empty errorMessages }">
+		<div class="errorMessages">
+			<ul>
+				<c:forEach items="${errorMessages}" var="messages">
+					<font size="4" color="#ff0000"><c:out value="${messages}" /><br /></font>
+				</c:forEach>
+			</ul>
+		</div>
+		<c:remove var="errorMessages" scope="session" />
+	</c:if>
 
-	<h2>
-		<c:out value="${title}"></c:out>
-	</h2>
+
 	<form:form modelAttribute="signupForm">
-		<table>
+		<table class="signup">
+			<tr>
+				<td colspan="2">
+					<div class="title"><c:out value="${title}"></c:out></div>
+				</td>
+			</tr>
+
+
 			<tr>
 				<td>
 					<div class="label"><form:label path="name">名前</form:label></div>
@@ -103,7 +108,7 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-					<input type="submit" value="登録"/>
+					<div class="submit"><input type="submit" value="登録"/></div>
 				</td>
 			</tr>
 		</table>

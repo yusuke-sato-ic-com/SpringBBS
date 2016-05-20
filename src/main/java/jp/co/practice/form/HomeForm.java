@@ -13,4 +13,8 @@ public class HomeForm {
 	private Integer messageId;
 	private Integer commentId;
 
+	private Integer branchId;
+	private Integer departmentId;
+
+
 }

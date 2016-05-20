@@ -4,19 +4,59 @@
 	margin: 30px auto;
 	padding: 20px;
 	border: 2px solid #000000;
+	background-color: #def7fe;
+}
+
+#new_message{
+	width: 550px;
+	text-align: center;
+	margin: auto;
+	padding: 30px;
+	border: 2px solid #000000;
+	background-color: #def7fe;
 }
 
 .login_title {
 	font-size: 30px;
+	text-align: center;
 	padding-bottom: 10px;
 	margin-bottom: 20px;
-	border-bottom:solid 3px #8080ff;"
+/*	border-bottom:solid 3px #8080ff;*/
 }
 
-.label {
+.title {
+	font-size: 30px;
+	text-align: center;
+	padding-bottom: 10px;
+	margin-bottom: 20px;
+/*	border-bottom:solid 3px #8080ff;*/
+}
+
+.login_label {
 	width: 120px;
 	text-align: center;
 	padding: 8px;
+	color: #ffffff;
+	background-color: #0000ff;
+}
+
+.login_form {
+	width: 200px;
+	padding: 8px;
+}
+
+.label {
+	width: 150px;
+	text-align: center;
+	padding: 4px;
+	color: #ffffff;
+	background-color: #0000ff;
+}
+
+.message_label {
+	width: 100px;
+	text-align: center;
+	padding: 4px;
 	color: #ffffff;
 	background-color: #0000ff;
 }
@@ -28,11 +68,12 @@
 
 .submit {
 	padding: 8px;
+	text-align: center;
 }
 
 table.user_management {
-	text-align: left;
-	line-height: 1.5;
+	margin-left: auto;
+	margin-right: auto
 }
 
 table.user_management th {
@@ -40,4 +81,56 @@ table.user_management th {
 	line-height: 1.5;
 	color: #ffffff;
 	background-color: #0000ff;
+}
+
+table.user_management td {
+	line-height: 1.5;
+	color: #000000;
+	background-color: #def7fe;
+}
+
+table.signup {
+	margin-left: auto;
+	margin-right: auto
+
+}
+
+table.signup th {
+	text-align: center;
+	line-height: 1.5;
+	color: #ffffff;
+	background-color: #0000ff;
+}
+
+table.signup td {
+	line-height: 1.5;
+	color: #000000;
+	background-color: #def7fe;
+}
+
+table.user_edit {
+	margin-left: auto;
+	margin-right: auto
+}
+
+table.user_edit th {
+	text-align: center;
+	line-height: 1.5;
+	color: #ffffff;
+	background-color: #0000ff;
+}
+
+table.user_edit td {
+	line-height: 1.5;
+	color: #000000;
+	background-color: #def7fe;
+}
+
+#message {
+	color: #000000;
+	background-color: #def7fe;
+}
+
+.message-item {
+	font-style: oblique;
 }
