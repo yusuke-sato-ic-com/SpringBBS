@@ -16,4 +16,5 @@ private Date updateDate;
 private String name;
 private Integer branchId;
 private Integer departmentId;
+
 }

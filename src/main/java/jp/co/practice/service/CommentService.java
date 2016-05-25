@@ -35,4 +35,16 @@ public class CommentService {
 		commentMapper.postComment(comment);
 	}
 
+	// Ajax ユーザIDに該当する最新コメントのIDを取得
+	public Integer getLatestCommentId(Integer userId) {
+		Integer latestCommentId = commentMapper.getLatestCommentId(userId);
+		return latestCommentId;
+	}
+
+	// Ajax 最新コメント
+	public Comment getLatestComment(Integer latestCommentId) {
+		Comment latestComment = commentMapper.getLatestComment(latestCommentId);
+		return latestComment;
+	}
+
 }

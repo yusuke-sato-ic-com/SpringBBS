@@ -12,4 +12,8 @@ public interface CommentMapper {
 	void deleteComment(Integer commentId);
 
 	void postComment(Comment comment);
+
+	Integer getLatestCommentId(Integer userId);
+
+	Comment getLatestComment(Integer latestCommentId);
 }

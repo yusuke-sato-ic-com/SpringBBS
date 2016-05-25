@@ -57,21 +57,22 @@ function deleteDisp(){
 
 
 <script type="text/javascript">
-/*	$(function(){
+	$(function(){
 		// formのsubmitイベントで起動
-		$("form").submit(function(event) {
-			event.preventDefault(); // フォームの送信処理をキャンセル
+		$("#ajax-form").submit(function(event) {
+			event.preventDefault(); // フォームのsubmit送信処理をキャンセル
 			var form = $(this);
 			$.ajax({
 				type		: "POST", // method
-				url			: "ajaxTest", // action
-				dataType	: "text",
+				url			: "ajaxComment", // action
+				dataType	: "json",
 				data		: form.serialize(),
 				timeout: 10000,
 			})
 			.done(function(data){
 				// 通信が成功したときの処理
 				console.log("通信成功");
+				$("#ajax-comment").append(data.name + ' さんのコメント<br>' + data.text + '<br>' + data.insertDate + '<br>');
 
 			})
 			.fail(function(data){
@@ -84,7 +85,7 @@ function deleteDisp(){
 			});
 		});
 	});
-	*/
+
 </script>
 
 
@@ -215,8 +216,19 @@ function deleteDisp(){
 				</div>
 			</c:if>
 		</c:forEach>
+		<div id="ajax-comment">
+			<div id="comment-name" value="">
+				<c:out value="${comment.name}" />
+			</div>
+			<div id="comment-text">
+				<c:out value="${comment.text}"  escapeXml="false"/>
+			</div>
+			<div id="comment-date">
+				<fmt:formatDate value="${comment.insertDate}" pattern="yyyy/MM/dd HH:mm:ss" />
+			</div>
+		</div>
 
-		<form:form ModelAttribute="newCommentForm" action="/SpringBBS/newComment">
+		<form:form id="ajax-form" ModelAttribute="newCommentForm" action="/SpringBBS/newComment">
 			<label for="comment">コメントする</label><br />
 			<input name="messageId" type="hidden" value="${message.id}" id="messageId" />
 			<input name="userId" type="hidden" value="${loginUser.id}" />
